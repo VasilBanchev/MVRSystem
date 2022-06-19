@@ -16,6 +16,9 @@ namespace PresentationLayer
         public DrivingLicenseChanger(DrivingLicense drivingLicense)
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
+            this.MinimumSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+
         }
     }
 }

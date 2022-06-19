@@ -17,6 +17,8 @@ namespace PresentationLayer
         CardManager _manager = new CardManager(MVRSystemDBManager.GetContext());
         
         private Card card;
+
+       private  string picPath = "";
         public CardChanger(Card _card)
         {
             InitializeComponent();
@@ -27,11 +29,15 @@ namespace PresentationLayer
             this.MinimumSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
 
             generateItems(_card);
+            picPath = card.Image;
+
+
 
         }
   
         private void generateItems(Card card)
         {
+            DocNumLabel.Text = card.Id;
             AddressTB.Text = card.Adress;
             CityTB.Text = card.PlaceOfBirth;
             EyecolourTB.Text = card.EyeColor;
@@ -46,7 +52,8 @@ namespace PresentationLayer
             comboBox1.SelectedItem = card.Authority;
             pictureBox3.Image = Image.FromFile(card.Image);
             pictureBox4.Image = Image.FromFile(card.Image);
-
+            ExpiryLabel.Text = card.ExpireDate;
+            LabelsConnectedWithEGN();
 
            /* Authority.ResetText();
             DateOfBirth.ResetText();
@@ -74,6 +81,53 @@ namespace PresentationLayer
             UniCode2Label.Text = card.SpecialCode2;
             UniCode3Label.Text = card.SpecialCode3;
         }
+
+        private void LabelsConnectedWithEGN()
+        {
+            string finalDate = string.Empty;
+            string egnvalue = IDnumTB.Text;
+            string yearNum = egnvalue[0].ToString();
+            yearNum += egnvalue[1].ToString();
+            string monthNum = egnvalue[2].ToString();
+            monthNum += egnvalue[3].ToString();
+            string dateNum = egnvalue[4].ToString();
+            dateNum += egnvalue[5].ToString();
+            string newUnicode = string.Empty;
+            if (int.Parse(monthNum) < 20)
+            {
+                finalDate = $"{dateNum}.{monthNum}.19{yearNum}";
+                newUnicode = dateNum + $"{(int.Parse(monthNum)):D2}" + yearNum;
+            }
+            else if (int.Parse(monthNum) < 40)
+            {
+                finalDate = $"{dateNum}.{int.Parse(monthNum) - 20}.18{yearNum}";
+
+                newUnicode = dateNum + $"{(int.Parse(monthNum) - 20):D2}" + yearNum;
+            }
+            else
+            {
+                finalDate = $"{dateNum}.{int.Parse(monthNum) - 40}.20{yearNum}";
+                newUnicode = dateNum + $"{(int.Parse(monthNum) - 40):D2}" + yearNum;
+            }
+            DateOfBirth.Text = finalDate;
+
+
+            int genderNum = Convert.ToInt32(IDnumTB.Text[8]);
+            if (genderNum % 2 == 0)
+            {
+                GenderLabel.Text = "М/М";
+                UniCode2Label.Text = UniCodeNew(UniCode2Label.Text, "M", 8);
+            }
+            else
+            {
+                GenderLabel.Text = "Ж/F";
+                UniCode2Label.Text = UniCodeNew(UniCode2Label.Text, "F", 8);
+
+            }
+
+
+
+        }
         #region tupimetodi
         private void folderBrowserDialog1_HelpRequest(object sender, EventArgs e)
         {
@@ -95,10 +149,9 @@ namespace PresentationLayer
                 if (openFileDialog.ShowDialog() == DialogResult.OK && (fileStream = openFileDialog.OpenFile()) != null)
                 {
                     string fileName = openFileDialog.FileName;
-                    string path = "";
-                    path = System.IO.Path.GetFullPath(openFileDialog.FileName);
-                    pictureBox3.Image = Image.FromFile(path);
-                    pictureBox4.Image = Image.FromFile(path);
+                   picPath = System.IO.Path.GetFullPath(openFileDialog.FileName);
+                    pictureBox3.Image = Image.FromFile(picPath);
+                    pictureBox4.Image = Image.FromFile(picPath);
 
                 }
             }
@@ -110,7 +163,6 @@ namespace PresentationLayer
            
 
         }
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             try
@@ -486,71 +538,43 @@ namespace PresentationLayer
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            Card idCard = new Card(card.Id, IDnumTB.Text, pictureBox3.ImageLocation, NameTB.Text, MidNameTB.Text, SurnameTB.Text, GenderLabel.Text, DateOfBirth.Text, ExpiryLabel.Text, PlaceTB.Text, PlaceOfBirth4label.Text, RegionTB.Text, CityTB.Text, TownshipTB.Text, Convert.ToInt32(numericUpDown1.Value), EyecolourTB.Text, Authority.Text, DateTime.Now.ToString(), UniCode1Label.Text, UniCode2Label.Text, UniCode3Label.Text);
-            _manager.Update(idCard);
-
-            MessageBox.Show("Успешна промяна");
-            this.Close();
-            
-        
-        }
-
-        private void ResetFormData()
-        {
             try
             {
-             /*   CardChanger newForm = new CardChanger();
-                this.Hide();
-                newForm.ShowDialog();
-                this.Close();*/
+               /* card.EGN = IDnumTB.Text;
+                card.Image = picPath;
+                card.FirstName = NameTB.Text;
+                card.MidleName = MidNameTB.Text;
+                card.LastName = SurnameTB.Text;
+                card.Gender = (GenderLabel.Text.ToString()[0]).ToString();
+                card.BirthDate = DateOfBirth.Text;
+                card.ExpireDate = ExpiryLabel.Text;
+                card.PlaceOfBirth = PlaceTB.Text;
+                card.Region = RegionTB.Text;
+                card.City = CityTB.Text;
+                card.Township = TownshipTB.Text;
+                card.Adress = AddressTB.Text;
+                card.Height = Convert.ToInt32(numericUpDown1.Value);
+                card.EyeColor = EyecolourTB.Text;
+                card.Authority = Authority.Text;
+                card.SpecialCode1 = UniCode1Label.Text;
+                card.SpecialCode2 = UniCode2Label.Text;
+                card.SpecialCode3 = UniCode3Label.Text;
+               */
+                _manager.Update(card);
 
-                AddressTB.Clear();
-                CityTB.Clear();
-                EyecolourTB.Clear();
-                IDnumTB.Clear();
-                MidNameTB.Clear();
-                NameTB.Clear();
-                PlaceTB.Clear();
-                RegionTB.Clear();
-                SurnameTB.Clear();
-                TownshipTB.Clear();
-                numericUpDown1.Value = 170;
-                comboBox1.ResetText();
-
-                Authority.ResetText();
-                DateOfBirth.ResetText();
-                ImeLabel.ResetText();
-                DateOfAuthorityLabel.ResetText();
-                DocNumLabel.ResetText();
-                EGNLabel.ResetText();
-                ExpiryLabel.ResetText();
-                FamiliyaBackLabel.ResetText();
-                FamiliyaLabel.ResetText();
-                GenderLabel.ResetText();
-                HeightLabel.ResetText();
-                ImeLabel.ResetText();
-                MidNameLabel.ResetText();
-                NameLabel.ResetText();
-                PlaceOfBirth1Label.ResetText();
-                PlaceOfBirth2Label.ResetText();
-                PlaceOfBirth3label.ResetText();
-                PlaceOfBirth4label.ResetText();
-                PlaceOfBirthLabel.ResetText();
-                PrezimeLabel.ResetText();
-                SurnameLabel.ResetText();
-
-                UniCode1Label.Text = $"IDBGN{card.Id}<<<<<<<<<<<<<<<";
-                UniCode2Label.Text = $"--------{DateTime.Now.AddYears(10).Year.ToString()[2]}{DateTime.Now.AddYears(10).Year.ToString()[3]}{((short)DateTime.Now.Month):d2}{DateTime.Now.Day:d2}-BGR----------<-";
-                UniCode3Label.Text = "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
-
+                MessageBox.Show("Успешна промяна");
+                this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-           
+          
+            
+        
         }
 
+      
         private void PrezimeLabel_Click(object sender, EventArgs e)
         {
 

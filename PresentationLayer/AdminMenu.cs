@@ -34,5 +34,11 @@ namespace PresentationLayer
             Finder form = new Finder();
             form.ShowDialog();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            UserFinder form = new UserFinder();
+            form.ShowDialog();
+        }
     }
 }

@@ -18,8 +18,6 @@ namespace BusinessLayer
         public string EGN { get; set; }
         [Required]
         [ForeignKey("Card")]
-
-
         public Card OwnerCard { get; set; }
         [Required]
         [MaxLength(100)]

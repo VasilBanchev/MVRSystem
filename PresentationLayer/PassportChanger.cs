@@ -16,6 +16,10 @@ namespace PresentationLayer
         public PassportChanger(Passport passport)
         {
             InitializeComponent();
+
+            this.WindowState = FormWindowState.Maximized;
+            this.MinimumSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+
         }
     }
 }
