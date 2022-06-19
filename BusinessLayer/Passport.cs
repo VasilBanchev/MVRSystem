@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BusinessLayer
 {
+   
     public class Passport
     {
         [Key]
@@ -15,12 +16,12 @@ namespace BusinessLayer
         public string Id { get; set; }
         [Required]
         [MaxLength(10)]
+        
         public string EGN{ get; set; }
         [Required]
         [ForeignKey("Card")]
         public Card Card_Owner { get; set; }
-
-        public List<string> Destinations { get; set; }
+        string Destinations { get; set; }
         private Passport()
         {
 
@@ -29,7 +30,6 @@ namespace BusinessLayer
         public Passport(Card ownercard)
         {
             this.Card_Owner = ownercard;
-            this.Destinations = new List<string>();
         }
     }
 }

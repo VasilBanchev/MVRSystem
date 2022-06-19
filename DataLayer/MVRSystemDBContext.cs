@@ -24,7 +24,9 @@ namespace DataLayer
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-
+            modelBuilder.Entity<Passport>().HasIndex(passport=> passport.EGN).IsUnique();
+            modelBuilder.Entity<DrivingLicense>().HasIndex(drLicense => drLicense.EGN).IsUnique();
+            modelBuilder.Entity<Card>().HasIndex(card=> card.EGN).IsUnique();
         }
 
         public DbSet<User> Users { get; set; }
@@ -32,7 +34,6 @@ namespace DataLayer
         public DbSet<Card> Cards { get; set; }
 
         public DbSet<Passport> Passports { get; set; }
-        public DbSet<Visa> Visas { get; set; }
         public DbSet<DrivingLicense> DrivingLicenses { get; set; }
     }
 }

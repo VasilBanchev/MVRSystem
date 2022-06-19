@@ -3,6 +3,7 @@ using DataLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(MVRSystemDBContext))]
-    partial class MVRSystemDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220619184914_EGN-Unique")]
+    partial class EGNUnique
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,9 +129,6 @@ namespace DataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EGN")
-                        .IsUnique();
-
                     b.ToTable("Cards");
                 });
 
@@ -160,9 +159,6 @@ namespace DataLayer.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Card");
-
-                    b.HasIndex("EGN")
-                        .IsUnique();
 
                     b.ToTable("DrivingLicenses");
                 });
