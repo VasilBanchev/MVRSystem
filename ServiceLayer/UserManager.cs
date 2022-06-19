@@ -82,5 +82,30 @@ namespace ServiceLayer
                 throw ex;
             }
         }
+
+        public bool CorrectLogin(string username, string password)
+        {
+            List<User> users = ReadAll().ToList();
+            try
+            {
+                User user = users.Find(x => x.Username == username && x.Password == password);
+
+                if (user != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (NullReferenceException ex)
+            {
+
+                throw ex;
+              
+            }
+
+        }
     }
 }

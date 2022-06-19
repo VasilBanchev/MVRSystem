@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PresentationLayer
 {
-    public partial class NonAdminMenu : Form
+    public partial class ChooseDocument : Form
     {
-        public NonAdminMenu()
+        public ChooseDocument()
         {
             InitializeComponent();
         }
@@ -20,6 +20,18 @@ namespace PresentationLayer
         private void button1_Click(object sender, EventArgs e)
         {
             CardCreator form = new CardCreator();
+            form.ShowDialog();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            PassportCreator form = new PassportCreator();
+            form.ShowDialog();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DrivingLicenseCreator form = new DrivingLicenseCreator();
             form.ShowDialog();
         }
     }

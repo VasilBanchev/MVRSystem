@@ -21,52 +21,58 @@ namespace PresentationLayer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (radioButton1.Checked == true)
+            try
             {
-                CardManager manager = new CardManager(MVRSystemDBManager.GetContext());
-               Card card = manager.ReadAll().Where(x => x.EGN == textBox1.Text).First();
-                if (card!= null)
+                if (radioButton1.Checked == true)
                 {
-                    CardChanger newForm = new CardChanger(card);
-                    newForm.Parent = this;
-                    newForm.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show("Не съществува лична карта с това ЕГН");
-                }
+                    CardManager manager = new CardManager(MVRSystemDBManager.GetContext());
+                    Card card = manager.ReadAll().Where(x => x.EGN == textBox1.Text).First();
+                    if (card != null)
+                    {
+                        CardChanger newForm = new CardChanger(card);
+                        newForm.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Не съществува лична карта с това ЕГН");
+                    }
 
+                }
+                else if (radioButton2.Checked == true)
+                {
+                    PassportManager manager = new PassportManager(MVRSystemDBManager.GetContext());
+                    Passport passport = manager.ReadAll().Where(x => x.EGN == textBox1.Text).First();
+                    if (passport != null)
+                    {
+                        PassportChanger newForm = new PassportChanger(passport);
+                        newForm.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Не съществува паспорт с това ЕГН");
+                    }
+                }
+                else if (radioButton3.Checked == true)
+                {
+                    DrivingLicenseManager manager = new DrivingLicenseManager(MVRSystemDBManager.GetContext());
+                    DrivingLicense drivingLicense = manager.ReadAll().Where(x => x.EGN == textBox1.Text).First();
+                    if (drivingLicense != null)
+                    {
+                        DrivingLicenseChanger newForm = new DrivingLicenseChanger(drivingLicense);
+                        
+                        newForm.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Не съществува шофьорска книжка с това ЕГН");
+                    }
+                }
             }
-            else if (radioButton2.Checked == true)
+            catch (Exception ex)
             {
-                PassportManager manager = new PassportManager(MVRSystemDBManager.GetContext());
-                Passport passport = manager.ReadAll().Where(x => x.EGN == textBox1.Text).First();
-                if (passport != null)
-                {
-                    PassportChanger newForm = new PassportChanger(passport);
-                    newForm.Parent = this;
-                    newForm.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show("Не съществува паспорт с това ЕГН");
-                }
+                MessageBox.Show(ex.Message);
             }
-            else if (radioButton3.Checked == true)
-            {
-                DrivingLicenseManager manager = new DrivingLicenseManager(MVRSystemDBManager.GetContext());
-                DrivingLicense drivingLicense= manager.ReadAll().Where(x => x.EGN == textBox1.Text).First();
-                if (drivingLicense!= null)
-                {
-                    DrivingLicenseChanger newForm = new DrivingLicenseChanger(drivingLicense);
-                    newForm.Parent = this;
-                    newForm.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show("Не съществува шофьорска книжка с това ЕГН");
-                }
-            }
+            
         }
       /*  private void GetData(string selectCommand)
         {

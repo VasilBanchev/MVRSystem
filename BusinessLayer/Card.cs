@@ -82,6 +82,7 @@ namespace BusinessLayer
         {
             this.Id = id;
             this.EGN = egn;
+            this.Image = image;
             this.FirstName = fname;
             this.MidleName = mname;
             this.LastName = lname;

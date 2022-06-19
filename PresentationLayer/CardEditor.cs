@@ -25,7 +25,8 @@ namespace PresentationLayer
           
             this.WindowState = FormWindowState.Maximized;
             this.MinimumSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-           
+
+            generateItems(_card);
 
         }
   
@@ -42,8 +43,10 @@ namespace PresentationLayer
             SurnameTB.Text = card.LastName;
             TownshipTB.Text = card.Township;
             numericUpDown1.Value = card.Height;
-            comboBox1.ResetText();
+            comboBox1.SelectedItem = card.Authority;
             pictureBox3.Image = Image.FromFile(card.Image);
+            pictureBox4.Image = Image.FromFile(card.Image);
+
 
            /* Authority.ResetText();
             DateOfBirth.ResetText();
@@ -71,6 +74,7 @@ namespace PresentationLayer
             UniCode2Label.Text = card.SpecialCode2;
             UniCode3Label.Text = card.SpecialCode3;
         }
+        #region tupimetodi
         private void folderBrowserDialog1_HelpRequest(object sender, EventArgs e)
         {
 
@@ -156,7 +160,7 @@ namespace PresentationLayer
 
         }
 
-        #region tupi_metodi
+       
         private void CardChanger_SizeChanged(object sender, EventArgs e)
         {
 
@@ -554,7 +558,19 @@ namespace PresentationLayer
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            _manager.Delete(card.Id);
+            try
+            {
+                _manager.Delete(card.Id);
+
+                MessageBox.Show("Успешно изтрита карта");
+
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
+
     }
 }

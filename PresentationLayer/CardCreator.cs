@@ -20,6 +20,22 @@ namespace PresentationLayer
         public CardCreator()
         {
             InitializeComponent();
+            GenUniCodeID();
+            this.WindowState = FormWindowState.Maximized;
+            this.MinimumSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            //  FamiliyaLabel.BackColor = pictureBox1.BackColor;
+            ExpiryLabel.Text = DateTime.Now.AddYears(10).ToShortDateString();
+            DateOfAuthorityLabel.Text = DateTime.Now.ToShortDateString();
+
+           
+
+            UniCode1Label.Text = $"IDBGN{unicodeID}<<<<<<<<<<<<<<<";
+            UniCode2Label.Text = $"--------{DateTime.Now.AddYears(10).Year.ToString()[2]}{DateTime.Now.AddYears(10).Year.ToString()[3]}{((short)DateTime.Now.Month):d2}{DateTime.Now.Day:d2}-BGR----------<-";
+            UniCode3Label.Text = "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
+
+        }
+        private void GenUniCodeID()
+        {
             try
             {
                 Card card = _manager.ReadAll().Last();
@@ -30,19 +46,7 @@ namespace PresentationLayer
 
                 unicodeID = "000000001";
             }
-          
-            this.WindowState = FormWindowState.Maximized;
-            this.MinimumSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-            //  FamiliyaLabel.BackColor = pictureBox1.BackColor;
-            ExpiryLabel.Text = DateTime.Now.AddYears(10).ToShortDateString();
-            DateOfAuthorityLabel.Text = DateTime.Now.ToShortDateString();
-
             DocNumLabel.Text = unicodeID;
-
-            UniCode1Label.Text = $"IDBGN{unicodeID}<<<<<<<<<<<<<<<";
-            UniCode2Label.Text = $"--------{DateTime.Now.AddYears(10).Year.ToString()[2]}{DateTime.Now.AddYears(10).Year.ToString()[3]}{((short)DateTime.Now.Month):d2}{DateTime.Now.Day:d2}-BGR----------<-";
-            UniCode3Label.Text = "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
-
         }
         private string ConvertText(string text)
         {
@@ -68,10 +72,10 @@ namespace PresentationLayer
                 if (openFileDialog.ShowDialog() == DialogResult.OK && (fileStream = openFileDialog.OpenFile()) != null)
                 {
                     string fileName = openFileDialog.FileName;
-                    string path = "";
-                    path = System.IO.Path.GetFullPath(openFileDialog.FileName);
-                    pictureBox3.Image = Image.FromFile(path);
-                    pictureBox4.Image = Image.FromFile(path);
+                    imagePath = "";
+                    imagePath = System.IO.Path.GetFullPath(openFileDialog.FileName);
+                    pictureBox3.Image = Image.FromFile(imagePath);
+                    pictureBox4.Image = Image.FromFile(imagePath);
 
                 }
             }
@@ -459,7 +463,7 @@ namespace PresentationLayer
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-           Card idCard = new Card(unicodeID ,IDnumTB.Text, pictureBox3.ImageLocation, NameTB.Text, MidNameTB.Text, SurnameTB.Text,GenderLabel.Text, DateOfBirth.Text,ExpiryLabel.Text, PlaceTB.Text, PlaceOfBirth4label.Text,RegionTB.Text,CityTB.Text, TownshipTB.Text, Convert.ToInt32(numericUpDown1.Value), EyecolourTB.Text, Authority.Text, DateTime.Now.ToString(), UniCode1Label.Text, UniCode2Label.Text, UniCode3Label.Text);
+            Card idCard = new Card(unicodeID, IDnumTB.Text, imagePath, NameTB.Text, MidNameTB.Text, SurnameTB.Text, (GenderLabel.Text.ToString()[0]).ToString(), DateOfBirth.Text, ExpiryLabel.Text, PlaceTB.Text, PlaceOfBirth4label.Text, RegionTB.Text, CityTB.Text, TownshipTB.Text, Convert.ToInt32(numericUpDown1.Value), EyecolourTB.Text, Authority.Text, DateTime.Now.ToShortDateString(), UniCode1Label.Text, UniCode2Label.Text, UniCode3Label.Text);
            _manager.Create(idCard);
 
             ResetFormData();
@@ -511,9 +515,16 @@ namespace PresentationLayer
                 PrezimeLabel.ResetText();
                 SurnameLabel.ResetText();
 
+                pictureBox3.Image = null;
+                pictureBox4.Image = null;
+
+                GenUniCodeID();
+
                 UniCode1Label.Text = $"IDBGN{unicodeID}<<<<<<<<<<<<<<<";
                 UniCode2Label.Text = $"--------{DateTime.Now.AddYears(10).Year.ToString()[2]}{DateTime.Now.AddYears(10).Year.ToString()[3]}{((short)DateTime.Now.Month):d2}{DateTime.Now.Day:d2}-BGR----------<-";
                 UniCode3Label.Text = "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
+
+                
 
             }
             catch (Exception ex)

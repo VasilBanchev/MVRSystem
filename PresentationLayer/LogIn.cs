@@ -5,7 +5,7 @@ namespace PresentationLayer
 {
     public partial class LogIn : Form
     {
-        UserManager _manager = new UserManager();
+        UserManager _manager = new UserManager(MVRSystemDBManager.GetContext());
         public LogIn()
         {
             InitializeComponent();
@@ -28,13 +28,13 @@ namespace PresentationLayer
                     if (user.IsAdmin == true)
                     {
                         AdminMenu newForm = new AdminMenu();
-                        newForm.Parent = this;
+                       
                         newForm.ShowDialog();
                     }
                     else
                     {
                         NonAdminMenu newForm = new NonAdminMenu();
-                        newForm.Parent = this;
+                        newForm.MdiParent = this;
                         newForm.ShowDialog();
                     }
                 }

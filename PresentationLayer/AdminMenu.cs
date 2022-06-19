@@ -16,5 +16,23 @@ namespace PresentationLayer
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ChooseDocument form = new ChooseDocument();
+            form.ShowDialog();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            UserCreate form = new UserCreate();
+            form.ShowDialog();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Finder form = new Finder();
+            form.ShowDialog();
+        }
     }
 }

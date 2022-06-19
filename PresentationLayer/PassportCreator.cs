@@ -10,17 +10,11 @@ using System.Windows.Forms;
 
 namespace PresentationLayer
 {
-    public partial class NonAdminMenu : Form
+    public partial class PassportCreator : Form
     {
-        public NonAdminMenu()
+        public PassportCreator()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            CardCreator form = new CardCreator();
-            form.ShowDialog();
         }
     }
 }

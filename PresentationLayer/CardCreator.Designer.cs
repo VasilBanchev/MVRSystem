@@ -726,7 +726,7 @@
             this.pictureBox3.DoubleClick += new System.EventHandler(this.pictureBox3_DoubleClick);
             this.pictureBox3.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox3_MouseClick);
             // 
-            // CardChanger
+            // CardCreator
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -764,7 +764,7 @@
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label4);
-            this.Name = "CardChanger";
+            this.Name = "CardCreator";
             this.Text = "Adder";
             this.MinimumSizeChanged += new System.EventHandler(this.CardChanger_MinimumSizeChanged);
             this.LocationChanged += new System.EventHandler(this.CardChanger_LocationChanged);
