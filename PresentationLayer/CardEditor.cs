@@ -55,28 +55,6 @@ namespace PresentationLayer
             ExpiryLabel.Text = card.ExpireDate;
             LabelsConnectedWithEGN();
 
-           /* Authority.ResetText();
-            DateOfBirth.ResetText();
-            ImeLabel.ResetText();
-            DateOfAuthorityLabel.ResetText();
-            DocNumLabel.ResetText();
-            EGNLabel.ResetText();
-            ExpiryLabel.ResetText();
-            FamiliyaBackLabel.ResetText();
-            FamiliyaLabel.ResetText();
-            GenderLabel.ResetText();
-            HeightLabel.ResetText();
-            ImeLabel.ResetText();
-            MidNameLabel.ResetText();
-            NameLabel.ResetText();
-            PlaceOfBirth1Label.ResetText();
-            PlaceOfBirth2Label.ResetText();
-            PlaceOfBirth3label.ResetText();
-            PlaceOfBirth4label.ResetText();
-            PlaceOfBirthLabel.ResetText();
-            PrezimeLabel.ResetText();
-            SurnameLabel.ResetText();*/
-
             UniCode1Label.Text = card.SpecialCode1;
             UniCode2Label.Text = card.SpecialCode2;
             UniCode3Label.Text = card.SpecialCode3;
@@ -540,7 +518,7 @@ namespace PresentationLayer
         {
             try
             {
-               /* card.EGN = IDnumTB.Text;
+                card.EGN = IDnumTB.Text;
                 card.Image = picPath;
                 card.FirstName = NameTB.Text;
                 card.MidleName = MidNameTB.Text;
@@ -559,7 +537,7 @@ namespace PresentationLayer
                 card.SpecialCode1 = UniCode1Label.Text;
                 card.SpecialCode2 = UniCode2Label.Text;
                 card.SpecialCode3 = UniCode3Label.Text;
-               */
+               
                 _manager.Update(card);
 
                 MessageBox.Show("Успешна промяна");

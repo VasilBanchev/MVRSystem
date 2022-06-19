@@ -4,7 +4,7 @@
 
 namespace DataLayer.Migrations
 {
-    public partial class SQLServer : Migration
+    public partial class BugInUpdate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

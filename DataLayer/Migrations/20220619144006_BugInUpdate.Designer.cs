@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(MVRSystemDBContext))]
-    [Migration("20220619111658_SQLServer")]
-    partial class SQLServer
+    [Migration("20220619144006_BugInUpdate")]
+    partial class BugInUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

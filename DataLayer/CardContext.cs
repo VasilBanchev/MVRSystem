@@ -75,7 +75,7 @@ namespace DataLayer
         {
             try
             {
-                Card cardFromDB = Read(item.EGN);
+                Card cardFromDB = Read(item.Id);
 
                 _context.Entry(cardFromDB).CurrentValues.SetValues(item);
                 _context.SaveChanges();
