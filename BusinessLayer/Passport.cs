@@ -19,10 +19,8 @@ namespace BusinessLayer
         [Required]
         [ForeignKey("Card")]
         public Card Card_Owner { get; set; }
-        
-        [ForeignKey("Visa")]
-        public List<Visa> Visas { get; set; }
 
+        public List<string> Destinations { get; set; }
         private Passport()
         {
 
@@ -31,7 +29,7 @@ namespace BusinessLayer
         public Passport(Card ownercard)
         {
             this.Card_Owner = ownercard;
-            this.Visas = new List<Visa>();
+            this.Destinations = new List<string>();
         }
     }
 }
